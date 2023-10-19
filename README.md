@@ -10,4 +10,4 @@
 #### Navigate to the project folder and install the requirements to the virtual environment
     pip install -r requirements.txt
     
-Now you can the required file to see the plots.
+Now you can run the required file to see the plots.
