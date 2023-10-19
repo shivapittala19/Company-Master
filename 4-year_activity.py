@@ -6,6 +6,14 @@ import datetime
 def year_vs_principal_business():
     
     business_activities = {}
+    
+    # creating a dictinary for business principle activities for each year
+    # {
+    #     'year' : {
+    #         'activity1' : 'number_of_reg', 'activity2':'number_of_reg'
+    #     }
+    # }
+    
     for row in maharashtra:
         try:
             year = datetime.datetime.strptime(row['DATE_OF_REGISTRATION'],"%d-%m-%y").year
@@ -23,9 +31,13 @@ def year_vs_principal_business():
         except :
             pass
         
+    # for every year soting the business activities based on its value 
     sorted_business_activity = {year : dict(sorted(business_activities[year].items(),key=lambda x : x[1],reverse=True)) for year in business_activities}
+    
+    # sorting by year , for display the plot ordered by year
     sorted_business_activity_year = dict(sorted(sorted_business_activity.items(),key = lambda x : x [0]))
     
+    # get the list of top 5 activities
     top_five_activities = list(sorted_business_activity_year[2012].keys())[:5]
     
     # Create the grouped bar plot
@@ -41,7 +53,7 @@ def year_vs_principal_business():
     ]
     
     for index , value in enumerate(top_five_activities):
-        values = [data.get(value) for data in list(sorted_business_activity_year.values())]
+        values = [data.get(value) for data in list(sorted_business_activity_year.values())] # for every year get the list of values of top 5 activities
         plt.bar([pos + index * width for pos in x], values ,width=width , label = value , color = color_codes[index])
     
     plt.xlabel('Year')
