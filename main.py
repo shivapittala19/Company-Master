@@ -19,4 +19,3 @@ def csv_reader(file_name):
 
 maharashtra = load_csv('Maharashtra.csv')
 pin_code_to_district = csv_reader('pincode.csv')
-
