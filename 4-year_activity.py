@@ -62,7 +62,7 @@ def year_vs_principal_business():
     plt.xticks([pos + width * (len(top_five_activities)) for pos in x], years)
     plt.legend()
 
-    plt.tight_layout()
+    
     plt.show()
             
     
