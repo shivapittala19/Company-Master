@@ -59,7 +59,7 @@ def year_vs_principal_business():
     plt.xlabel('Year')
     plt.ylabel('Count')
     plt.title('Grouped Bar Plot for Business Activities')
-    plt.xticks([pos + width * (len(top_five_activities) / 2) for pos in x], years)
+    plt.xticks([pos + width * (len(top_five_activities)) for pos in x], years)
     plt.legend()
 
     plt.tight_layout()
