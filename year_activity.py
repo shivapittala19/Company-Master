@@ -1,7 +1,7 @@
 """ top business activities in each year"""
 import datetime
 import matplotlib.pyplot as plt
-from main import maharashtra
+import main
 
 def year_vs_principal_business():
     """ top business activities in each year"""
@@ -12,13 +12,14 @@ def year_vs_principal_business():
     #         'activity1' : 'number_of_reg', 'activity2':'number_of_reg'
     #     }
     # }
-    for row in maharashtra:
+    maharashtra = main.load_csv('Maharashtra.csv')
+    for company in maharashtra:
         try:
-            year = datetime.datetime.strptime(row['DATE_OF_REGISTRATION'],"%d-%m-%y").year
+            year = datetime.datetime.strptime(company['DATE_OF_REGISTRATION'],"%d-%m-%y").year
             if int(year) >= 2022: # Dataset is last updated in 2021
                 year = "19" + str(year)[2:]
             if  int(year) >= 2012:
-                activity = row['PRINCIPAL_BUSINESS_ACTIVITY_AS_PER_CIN']
+                activity = company['PRINCIPAL_BUSINESS_ACTIVITY_AS_PER_CIN']
                 if year in business_activities and activity != 'Unclassified':
                     if activity in business_activities[year]:
                         business_activities[year][activity] += 1
@@ -42,7 +43,7 @@ def year_vs_principal_business():
     # Create the grouped bar plot
     years = list(sorted_business_activity_year.keys())
     width = 0.1  # Width of each bar
-    x = range(len(years))
+    number_of_years = range(len(years))
     color_codes = [
         "#FF5733",  # Red
         "#33FF57",  # Green
@@ -54,7 +55,7 @@ def year_vs_principal_business():
         # for every year get the list of values of top 5 activities
         values = [data.get(value) for data in list(sorted_business_activity_year.values())]
         plt.bar(
-            [pos + index * width for pos in x],
+            [pos + index * width for pos in number_of_years],
             values,
             width=width,
             label = value,
@@ -63,7 +64,7 @@ def year_vs_principal_business():
     plt.xlabel('Year')
     plt.ylabel('Count')
     plt.title('Grouped Bar Plot for Business Activities')
-    plt.xticks([pos + width * (len(top_five_activities)) for pos in x], years)
+    plt.xticks([pos + width * (len(top_five_activities)) for pos in number_of_years], years)
     plt.legend()
     plt.show()
 

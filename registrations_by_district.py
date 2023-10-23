@@ -1,11 +1,13 @@
 """numbe of registration in each  district"""
 import datetime
 import matplotlib.pyplot as plt
-from main import maharashtra , pin_code_to_district
+import main
 
 def registrations_by_district():
     """ numbe of registration in each  district """
-    data_dict = {}
+    maharashtra = main.load_csv('Maharashtra.csv')
+    pin_code_to_district = main.csv_reader('pincode.csv')
+    registrations = {}
     for row in maharashtra:
         try:
             year = datetime.datetime.strptime(row['DATE_OF_REGISTRATION'],"%d-%m-%y").year
@@ -16,11 +18,12 @@ def registrations_by_district():
         if year == 2015:
             key = row['Registered_Office_Address'].split(" ")[-1]
             if key in pin_code_to_district:
-                if pin_code_to_district[key] in data_dict:
-                    data_dict[pin_code_to_district[key]] += 1
+                district = pin_code_to_district[key]
+                if district in registrations:
+                    registrations[district] += 1
                 else:
-                    data_dict[pin_code_to_district[key]] = 1
-    plt.bar(data_dict.keys(),data_dict.values())
+                    registrations[district] = 1
+    plt.bar(registrations.keys(),registrations.values())
     plt.show()
 
 registrations_by_district()

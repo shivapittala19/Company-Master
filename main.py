@@ -17,6 +17,3 @@ def csv_reader(file_name):
         district = row['District']
         result_dict[pin_code] = district
     return result_dict
-
-maharashtra = load_csv('Maharashtra.csv')
-pin_code_to_district = csv_reader('pincode.csv')
